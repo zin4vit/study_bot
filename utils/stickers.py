@@ -1,0 +1,23 @@
+correct_stickers = ['CAACAgIAAxkBAAEIUn5kHz7uESX7o6GgIZrKM0J3jZZ98wACYwYAAoA_ByhOqUnVw41Rei8E',
+                    'CAACAgUAAxkBAAEIUoBkHz9xh5H_ZnXWpSznWdY2eZDxhgACWQUAAv8P0FeVusKjlK0jqC8E',
+                    'CAACAgUAAxkBAAEIUoJkHz-nag0lnGdfgWxzfpt523DXNwACPQQAAuLL0Vc8fzVOSO5JVC8E',
+                    'CAACAgUAAxkBAAEIUoRkH0Aa-38YfI5j1I4gfY1PYQJKfwAC8gIAAq2uOFebuWyag2LaBi8E',
+                    'CAACAgIAAxkBAAEIUpBkH0EXVFZ3Pfh_hbLHM1UyjQLIPgACKCIAAmOLRgxGT2ogaZvYxi8E',
+                    'CAACAgIAAxkBAAEIUpJkH0Fd6eRxp0LWlWMFIoCgOog5CAAC_CIAAmOLRgytdfP3d3AUQy8E',
+                    'CAACAgIAAxkBAAEIUpRkH0Gl2AoaA2DBBA638H9v2WcxVwACKSMAAmOLRgzrBqkiX8FLeS8E',
+                    'CAACAgIAAxkBAAEIUpZkH0P5lGMsre56umJDwqEu7a_JrwACBCMAAmOLRgwM6nLJeTcpei8E',
+                    'CAACAgUAAxkBAAEIUq1kH0cnpW-A3zdjXB_hwM2sMmuKVAAC6AUAApwLGVYZyfS5X5rb0i8E',
+                    'CAACAgUAAxkBAAEIUq9kH0c8rpFph2RW0cnSIucWWiGUSQACLwUAAnQ78VeOB3PdfvLh9i8E',
+                    'CAACAgUAAxkBAAEIUsFkH0hCq0HJkgABJddVS03PIAbEyUwAArwBAAKGvkFXhMjMOkyl-QcvBA',
+                    'CAACAgUAAxkBAAEIUsNkH0iGurzQbQyo27l9BD8rfKnGKwACrAMAAukKyAOwtKgu24enOy8E']
+
+incorrect_stickers = ['CAACAgIAAxkBAAEIUqFkH0XtkiDvW7UHEOKhfL4nDjX6egACRiMAAmOLRgwGBHxTdGJpEC8E',
+                      'CAACAgIAAxkBAAEIUqNkH0Yo4G1bPWevZaC5kIdbx0tM2AACWgYAAoA_ByheJFNa-C5BGS8E',
+                      'CAACAgIAAxkBAAEIUqdkH0ZupcefOjrs0yAH8-p71L7VyQAC-SIAAmOLRgwAAf0vncBMssovBA',
+                      'CAACAgIAAxkBAAEIUqlkH0bYXdf6nxQpWxXGxDDfRlCPfwACbgYAAoA_ByiRkCznWgoLKC8E',
+                      'CAACAgUAAxkBAAEIUrFkH0dUorSPzv-Lv3ce4XGV0QABVSEAApAFAAI7edFXhVJJkmKkwOwvBA',
+                      'CAACAgUAAxkBAAEIUrVkH0dnFVDtUi1N0IDbnOH__z1GRAACaAMAAl5y0Ve_yLTNFG6D5y8E',
+                      'CAACAgUAAxkBAAEIUrlkH0fBqKJ5lG0WBFV1nekvfhfjdAACQwMAAsqPOFcjEOq7BLI-KC8E',
+                      'CAACAgUAAxkBAAEIUrtkH0fkIQkfRGolYzNJEyUHRWT2swACdwEAAm6CQFd7GjMVdQOPuS8E',
+                      'CAACAgUAAxkBAAEIUr1kH0f7AhJBVu-_A6JFhGqIgbA9HAAClAMAAukKyAPXbNncxSnLkS8E',
+                      'CAACAgUAAxkBAAEIUr9kH0gcNJuDnZVAuttm3rJTQCJCtAAClQMAAukKyAMT47jbKiY5wC8E']
