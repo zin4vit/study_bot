@@ -10,6 +10,7 @@ from keyboards.inline.levels import *
 from keyboards.inline.themes import *
 import asyncio
 from utils.stickers import *
+import datetime
 
 async def make_png(items, user_id):
     text_list = []
@@ -42,6 +43,14 @@ async def make_png(items, user_id):
 
 @dp.message_handler(commands=['start'])
 async def start(message: Message):
+    tg_id = message.chat.id
+    username = message.chat.username
+    name = message.chat.first_name
+    date = str(datetime.datetime.now().date())
+    if not session.query(User).filter(User.tg_id == tg_id).first():
+        user = User(tg_id, username, name, date)
+        session.add(user)
+        session.commit()
     await message.answer('Hello friend!')
     await message.answer_sticker('CAACAgIAAxkBAAEIUm5kHzuo6ObjBhj2AAHV-x9nH9ygqEAAAu3KAAJji0YMdRUN2BcLG3UvBA')
     await choose_level(message=message)
@@ -58,6 +67,8 @@ async def choose_level(message: Message):
 @dp.callback_query_handler(level_data.filter(level='cancel'))
 @dp.callback_query_handler(answers_data.filter(answer='cancel'))
 async def cancel(callback: CallbackQuery):
+    session.query(User).filter(User.tg_id == callback.from_user.id).update({'last_dt': str(datetime.datetime.now().date())})
+    session.commit()
     await callback.message.delete()
     await callback.message.answer('Выберите уровень', reply_markup=choose_level_kb)
     await callback.message.answer_sticker('CAACAgIAAxkBAAEIUnxkHzyKGcAGkH7YkfDcRsWHO7hPewACagYAAoA_Byg5XCsozc2JFS8E')
