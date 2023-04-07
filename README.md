@@ -1,4 +1,4 @@
-<h1 align="center">STUDY_HARD_ROBOT</H1>
+<h1 align="center">STUDY HARD BOT</H1>
 <h2 align="center"><img src="https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white"</img>
 <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"</img>
 <img src="https://img.shields.io/badge/latex-%23008080.svg?style=for-the-badge&logo=latex&logoColor=white"</img>
