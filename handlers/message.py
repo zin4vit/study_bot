@@ -220,7 +220,7 @@ async def check_equation(callback: CallbackQuery, callback_data: CallbackData):
 @dp.message_handler(commands=['lesson'])
 async def lesson(message: Message):
     await message.answer('Если вам необходима индивидуальная консультация, напишите мне'
-                         '\nhttps://t.me/zin4vit'
+                         '\nhttps://t.me/nickname'
                          '\n Стоимость занятий:'
                          '\n60 мин - 1500 RUB'
                          '\n90 мин - 2000 RUB')
