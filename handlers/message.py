@@ -1,5 +1,5 @@
 from loader import dp
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, LabeledPrice, PreCheckoutQuery
 from db.models import *
 from loader import session
 import matplotlib.pyplot as plt
@@ -11,12 +11,16 @@ from keyboards.inline.themes import *
 import asyncio
 from utils.stickers import *
 import datetime
+from config import pay_token, admin
+
 
 async def make_png(items, user_id):
     text_list = []
     for i in range(len(items)):
-        f = rf'${i + 1}.\ {items[i]}$'
+        f = rf'$ {i + 1}.\ {items[i]}$'
         text_list.append(f)
+    # text_list.append(r'$\end{document}$')
+    path = f'{user_id}_task.png'
     text = '\n'.join(text_list)
 
     ### Создание области отрисовки
@@ -39,7 +43,7 @@ async def make_png(items, user_id):
 
     ### Отрисовка или сохранение формулы в файл
     # plt.show()
-    plt.savefig(f'{user_id}_task.png', dpi=300)
+    plt.savefig(f'{user_id}_task.png', dpi=300, )
 
 @dp.message_handler(commands=['start'])
 async def start(message: Message):
@@ -51,33 +55,31 @@ async def start(message: Message):
         user = User(tg_id, username, name, date)
         session.add(user)
         session.commit()
-    await message.answer('Hello friend!')
     await message.answer_sticker('CAACAgIAAxkBAAEIUm5kHzuo6ObjBhj2AAHV-x9nH9ygqEAAAu3KAAJji0YMdRUN2BcLG3UvBA')
+    await message.answer('Привет!')
+    await message.answer_sticker('CAACAgIAAxkBAAEIUptkH0T84u4PDQcezDgZpcgHlntgRAACJyMAAmOLRgxSiT5GQp3b9S8E')
     await choose_level(message=message)
 
 
 @dp.message_handler(commands=['test'])
 async def choose_level(message: Message):
+    await message.delete()
     await message.answer('Выберите уровень', reply_markup=choose_level_kb)
-    await message.answer_sticker('CAACAgIAAxkBAAEIUnxkHzyKGcAGkH7YkfDcRsWHO7hPewACagYAAoA_Byg5XCsozc2JFS8E')
 
 
 
 @dp.callback_query_handler(theme_data.filter(theme='cancel'))
-@dp.callback_query_handler(level_data.filter(level='cancel'))
 @dp.callback_query_handler(answers_data.filter(answer='cancel'))
 async def cancel(callback: CallbackQuery):
     session.query(User).filter(User.tg_id == callback.from_user.id).update({'last_dt': str(datetime.datetime.now().date())})
     session.commit()
     await callback.message.delete()
     await callback.message.answer('Выберите уровень', reply_markup=choose_level_kb)
-    await callback.message.answer_sticker('CAACAgIAAxkBAAEIUnxkHzyKGcAGkH7YkfDcRsWHO7hPewACagYAAoA_Byg5XCsozc2JFS8E')
 
 @dp.callback_query_handler(level_data.filter())
 async def choose_theme(callback: CallbackQuery, callback_data: CallbackData):
     await callback.message.delete()
     level = callback_data['level']
-    await callback.message.answer_sticker('CAACAgIAAxkBAAEIUptkH0T84u4PDQcezDgZpcgHlntgRAACJyMAAmOLRgxSiT5GQp3b9S8E')
     await callback.message.answer('Что будем изучать?', reply_markup=make_themes(level))
 
 
@@ -101,7 +103,7 @@ async def symbol(callback: CallbackQuery, callback_data: CallbackData):
         render_list.append(item.symbol)
     await make_png(render_list, callback.message.chat.id)
     await callback.message.answer_photo(photo=open(f'{callback.message.chat.id}_task.png', 'rb'),
-                                        caption=f'Выберите обозначение для физической величины \n"<b>{question.name.capitalize()}</b>"',
+                                        caption=f'"<b>{question.name.capitalize()}</b>"\n(выберите обозначение)',
                                         reply_markup=make_answers(symbols, question.id, level, theme))
     os.remove(f'{callback.message.chat.id}_task.png')
 
@@ -125,7 +127,7 @@ async def unit(callback: CallbackQuery, callback_data: CallbackData):
     for item in units:
         render_list.append(item.unit)
     await make_png(render_list, callback.message.chat.id)
-    await callback.message.answer_photo(photo=open(f'{callback.message.chat.id}_task.png', 'rb'), caption=f'Выберите единицы измерения для физической величины \n"<b>{question.name.capitalize()}</b>"',reply_markup=make_answers(units, question.id, level, theme))
+    await callback.message.answer_photo(photo=open(f'{callback.message.chat.id}_task.png', 'rb'), caption=f'"<b>{question.name.capitalize()}</b>"\n(выберите единицы измерения)', reply_markup=make_answers(units, question.id, level, theme))
     os.remove(f'{callback.message.chat.id}_task.png')
 
 
@@ -148,7 +150,7 @@ async def equation(callback: CallbackQuery, callback_data: CallbackData):
     for item in equations:
         render_list.append(item.equation)
     await make_png(render_list, callback.message.chat.id)
-    await callback.message.answer_photo(photo=open(f'{callback.message.chat.id}_task.png', 'rb'), caption=f'Выберите формулу. \n"<b>{question.name.capitalize()}</b>"',reply_markup=make_answers(equations, question.id, level, theme))
+    await callback.message.answer_photo(photo=open(f'{callback.message.chat.id}_task.png', 'rb'), caption=f'"<b>{question.name.capitalize()}</b>"\n(выберите формулу)',reply_markup=make_answers(equations, question.id, level, theme))
     os.remove(f'{callback.message.chat.id}_task.png')
 
 
@@ -214,6 +216,16 @@ async def check_equation(callback: CallbackQuery, callback_data: CallbackData):
         except:
             await callback.answer('Попробуйте ещё раз')
 
+
+@dp.message_handler(commands=['lesson'])
+async def lesson(message: Message):
+    await message.answer('Если вам необходима индивидуальная консультация, напишите мне'
+                         '\nhttps://t.me/zin4vit'
+                         '\n Стоимость занятий:'
+                         '\n60 мин - 1500 RUB'
+                         '\n90 мин - 2000 RUB')
+    await asyncio.sleep(3)
+    await choose_level(message=message)
 
 
 

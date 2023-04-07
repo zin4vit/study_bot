@@ -13,4 +13,3 @@ button_ege = InlineKeyboardButton('ЕГЭ', callback_data=level_data.new(level='
 choose_level_kb.row(button_seven, button_eight, button_nine)
 choose_level_kb.row(button_ten, button_eleven)
 choose_level_kb.row(button_oge, button_ege)
-choose_level_kb.add(InlineKeyboardButton(text='Отмена', callback_data=level_data.new(level='cancel')))

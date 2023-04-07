@@ -1,11 +1,16 @@
 from aiogram import executor
-from loader import dp
+from loader import dp, bot
 import handlers
 from utils.set_bot_commands import set_default_commands
+from config import *
+
 
 
 async def on_startup(dp):
     await set_default_commands(dp)
+
+
+
 
 
 
